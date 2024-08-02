@@ -84,15 +84,15 @@
                     </li>
 
                     {{-- category --}}
-                    {{-- <li class="{{ \Request::route()->getName() == 'category' ? 'active-page' : '' }}">
+                    <li class="{{ \Request::route()->getName() == 'category' ? 'active-page' : '' }}">
                         <a href="{{ route('category') }}" class="active"><i
                                 class="material-icons-two-tone">category</i>Category</a>
-                    </li> --}}
+                    </li>
 
                     {{-- tags links --}}
-                    {{-- <li class="{{ \Request::route()->getName() == 'tags' ? 'active-page' : '' }}">
-                        <a href="{{ route('tags') }}" class="active"><i class="material-icons-two-tone">tag</i>Tags</a>
-                    </li> --}}
+                    <li class="{{ \Request::route()->getName() == 'tag' ? 'active-page' : '' }}">
+                        <a href="{{ route('tag') }}" class="active"><i class="material-icons-two-tone">tag</i>Tags</a>
+                    </li>
 
                     {{-- blog links --}}
 
