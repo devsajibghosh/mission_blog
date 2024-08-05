@@ -31,7 +31,14 @@
     <link href="{{ asset('dashboard_asset') }}/assets/css/custom.css" rel="stylesheet">
 
     {{-- summer note --}}
+<!-- include libraries(jQuery, bootstrap) -->
+{{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
 
+<!-- include summernote css/js -->
+{{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
 
     {{-- image link --}}
     <link rel="icon" type="image/png" sizes="32x32"
@@ -96,18 +103,18 @@
 
                     {{-- blog links --}}
 
-                    {{-- <li class="{{ \Request::route()->getName() == 'blog' ? 'active-page' : '' }}">
+                    <li class="{{ \Request::route()->getName() == 'blog' ? 'active-page' : '' }}">
                         <a href="" class="active"><i class="material-icons-two-tone">compost</i>Blogs<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
-                        <ul class="sub-menu"> --}}
-                            {{-- <li>
+                        <ul class="sub-menu">
+                            <li>
                                 <a href="{{ route('blog') }}">Blogs</a>
                             </li>
                             <li>
                                 <a href="{{ route('blog.create') }}">Blogs Create</a>
                             </li>
                         </ul>
-                    </li> --}}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -146,7 +153,7 @@
                                     <ul class="dropdown-menu dropdown-lg large-items-menu"
                                         aria-labelledby="exploreDropdownLink">
                                         <li>
-                                            <h6 class="dropdown-header">Repositories</h6>
+                                     <h6 class="dropdown-header">Repositories</h6>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">

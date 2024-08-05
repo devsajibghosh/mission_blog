@@ -52,10 +52,10 @@ class TagController extends Controller
     // changing status
 
     function tag_edit_status($id){
-        $tag = Tag::where('id',$id)->first();
 
+        $tag = Tag::where('id',$id)->first();
+        
         if($tag->status == 'active'){
-            
             Tag::find($id)->update([
                 'status' => 'deactive',
                 'updated_at' => now(),

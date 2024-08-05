@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TagController;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,6 +57,25 @@ Route::post('/tag/edit/delete/{id}', [TagController::class, 'tag_edit_delete'])-
 Route::post('/tag/edit/restore/{id}', [TagController::class, 'tag_edit_restore'])->name('tag.restore');
 Route::post('/tag/edit/forcedelete/{id}', [TagController::class, 'tag_edit_forcedelete'])->name('tag.forcedelete');
 Route::post('/tag/edit/status/{id}', [TagController::class, 'tag_edit_status'])->name('tag.status');
+
+
+// blogs area
+
+Route::get('/blog',[BlogController::class,'index'])->name('blog');
+Route::get('/blog/create',[BlogController::class,'blog_create'])->name('blog.create');
+Route::post('/blog/main/create',[BlogController::class,'create'])->name('blog.new.create');
+Route::post('/blog/main/delete/{id}',[BlogController::class,'delete'])->name('blog.new.delete');
+Route::post('/blog/main/restore/{id}',[BlogController::class,'restore'])->name('blog.new.restore');
+Route::post('/blog/main/forcedelete/{id}',[BlogController::class,'forcedelete'])->name('blog.new.forcedelete');
+Route::post('/blog/main/status/{id}',[BlogController::class,'status'])->name('blog.new.status');
+// blog edit
+Route::get('/blog/edit/{id}',[BlogController::class,'edit_blog'])->name('blog.edit');
+Route::post('/blog/edit/{id}',[BlogController::class,'edit'])->name('blog.edit');
+
+
+
+
+
 
 
 
