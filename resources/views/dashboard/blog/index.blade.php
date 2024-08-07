@@ -162,41 +162,78 @@
                           </tr>
                     </thead>
                     <tbody>
-                    @forelse ($blogs as $blog)
-                    <tr>
-                        <td>{{ $blogs->firstItem() + $loop->index }}</td>
-                        <td>
-                            <img src="{{ asset('uploads/blogs') }}/{{ $blog->image }}"
-                            style="width: 120px; height:100px;">
-                        </td>
-                        <td>{{ $blog->title }}</td>
-                        <td>{{ $blog->RelationshipWithUSer->name }}</td>
-                        <td>{{ $blog->RelationshipWithCategory->title }}</td>
-                        <td class="d-flex gap-1">
-                            <form action="{{ route('blog.new.delete', $blog->id ) }}" method="POST">
-                                @csrf
-                                <button class="badge bg-danger">delete</button>
-                            </form>
-                            <form action="{{ route('blog.new.status', $blog->id ) }}" method="POST">
-                                @csrf
-                                @if ($blog->status == 'active')
-                                <button class="badge bg-success">active</button>
-                                @else
-                                <button class="badge bg-danger">deactive</button>
-                                @endif
-                            </form>
-                            {{-- edit option of blogs --}}
-                            <a href="{{ route('blog.edit', $blog->id ) }}" class="badge bg-primary">edit</a>
-                        </td>
-                      </tr>
-                    @empty
-                    <tr>
-                        <td class="text-danger text-center fw-bold" colspan="6">No Data found❌</td>
-                    </tr>
-                    @endforelse
+@if (auth()->user()->role == 'visitor')
+                        @forelse ($blogs as $blog)
+                        <tr>
+                            <td>{{  $loop->index +1 }}</td>
+                            <td>
+                                <img src="{{ asset('uploads/blogs') }}/{{ $blog->image }}"
+                                style="width: 120px; height:100px;">
+                            </td>
+                            <td>{{ $blog->title }}</td>
+                            <td>{{ $blog->RelationshipWithUSer->name }}</td>
+                            <td>{{ $blog->RelationshipWithCategory->title }}</td>
+                            <td class="d-flex gap-1">
+                                <form action="{{ route('blog.new.delete', $blog->id ) }}" method="POST">
+                                    @csrf
+                                    <button class="badge bg-danger">delete</button>
+                                </form>
+                                <form action="{{ route('blog.new.status', $blog->id ) }}" method="POST">
+                                    @csrf
+                                    @if ($blog->status == 'active')
+                                    <button class="badge bg-success">active</button>
+                                    @else
+                                    <button class="badge bg-danger">deactive</button>
+                                    @endif
+                                </form>
+                                {{-- edit option of blogs --}}
+                                <a href="{{ route('blog.edit', $blog->id ) }}" class="badge bg-primary">edit</a>
+                            </td>
+                          </tr>
+                        @empty
+                        <tr>
+                            <td class="text-danger text-center fw-bold" colspan="6">No Data found❌</td>
+                        </tr>
+                        @endforelse
+
+                        @else
+                        @forelse ($admin_blog as $blog)
+                        <tr>
+                            <td>{{  $loop->index +1 }}</td>
+                            <td>
+                                <img src="{{ asset('uploads/blogs') }}/{{ $blog->image }}"
+                                style="width: 120px; height:100px;">
+                            </td>
+                            <td>{{ $blog->title }}</td>
+                            <td>{{ $blog->RelationshipWithUSer->name }}</td>
+                            <td>{{ $blog->RelationshipWithCategory->title }}</td>
+                            <td class="d-flex gap-1">
+                                <form action="{{ route('blog.new.delete', $blog->id ) }}" method="POST">
+                                    @csrf
+                                    <button class="badge bg-danger">delete</button>
+                                </form>
+                                <form action="{{ route('blog.new.status', $blog->id ) }}" method="POST">
+                                    @csrf
+                                    @if ($blog->status == 'active')
+                                    <button class="badge bg-success">active</button>
+                                    @else
+                                    <button class="badge bg-danger">deactive</button>
+                                    @endif
+                                </form>
+                                {{-- edit option of blogs --}}
+                                <a href="{{ route('blog.edit', $blog->id ) }}" class="badge bg-primary">edit</a>
+                            </td>
+                          </tr>
+                        @empty
+                        <tr>
+                            <td class="text-danger text-center fw-bold" colspan="6">No Data found❌</td>
+                        </tr>
+                        @endforelse
+
+@endif
                     </tbody>
                   </table>
-                  {{ $blogs->links() }}
+                  {{-- {{ $blogs->links() }} --}}
             </div>
         </div>
     </div>
@@ -205,7 +242,6 @@
 @endsection
 
 @section('foter_content')
-
     @if (session('success'))
         <script>
             const Toast = Swal.mixin({
@@ -225,5 +261,4 @@
             });
         </script>
     @endif
-
 @endsection

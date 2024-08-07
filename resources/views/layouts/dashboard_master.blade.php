@@ -91,10 +91,13 @@
                     </li>
 
                     {{-- category --}}
-                    <li class="{{ \Request::route()->getName() == 'category' ? 'active-page' : '' }}">
-                        <a href="{{ route('category') }}" class="active"><i
-                                class="material-icons-two-tone">category</i>Category</a>
-                    </li>
+
+                    @if (auth()->user()->role == 'admin')
+                        <li class="{{ \Request::route()->getName() == 'category' ? 'active-page' : '' }}">
+                            <a href="{{ route('category') }}" class="active"><i
+                                    class="material-icons-two-tone">category</i>Category</a>
+                        </li>
+                    @endif
 
                     {{-- tags links --}}
                     <li class="{{ \Request::route()->getName() == 'tag' ? 'active-page' : '' }}">
@@ -103,9 +106,18 @@
 
                     {{-- blog links --}}
 
+                    @php
+                    if (auth()->user()->role == 'admin') {
+                        $count = App\Models\Blog::all()->count();
+                    }else{
+                        $count = App\Models\Blog::where('user_id',auth()->id())->count();
+                    }
+                    @endphp
+
                     <li class="{{ \Request::route()->getName() == 'blog' ? 'active-page' : '' }}">
                         <a href="" class="active"><i class="material-icons-two-tone">compost</i>Blogs<i
-                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i>
+                                <span class="badge rounded-pill badge-danger float-end">{{ $count }}</span></a>
                         <ul class="sub-menu">
                             <li>
                                 <a href="{{ route('blog') }}">Blogs</a>
@@ -115,6 +127,18 @@
                             </li>
                         </ul>
                     </li>
+
+                    {{-- role manager --}}
+
+@if (auth()->user()->role == 'admin' || auth()->user()->role == 'modaretor')
+                        <li class="{{ \Request::route()->getName() == 'role.view' ? 'active-page' : '' }}">
+                            <a href="{{ route('role.view') }}" class="active"><i
+                                    class="material-icons-two-tone">account_circle</i>Role_Manager</a>
+                        </li>
+@else
+
+@endif
+
                 </ul>
             </div>
         </div>

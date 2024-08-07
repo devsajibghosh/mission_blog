@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes([ 'register' => false ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -38,12 +39,12 @@ Route::post('/profile/image/update/{id}',[ProfileController::class,'image_update
 
 // category area
 
-Route::get('/category',[CategoryController::class,'category'])->name('category');
-Route::post('/category/insert',[CategoryController::class,'category_insert'])->name('category.insert');
-Route::post('/category/delete/{id}',[CategoryController::class,'category_delete'])->name('category.delete');
-Route::post('/category/status/{id}',[CategoryController::class,'category_status'])->name('category.status');
-Route::get('/category/edit/{slug}',[CategoryController::class,'category_edit'])->name('category.edit');
-Route::post('/category/edit/update/{id}',[CategoryController::class,'category_edit_update'])->name('category.edit.update');
+Route::get('/category',[CategoryController::class,'category'])->middleware('rolecheck')->name('category');
+Route::post('/category/insert',[CategoryController::class,'category_insert'])->middleware('rolecheck')->name('category.insert');
+Route::post('/category/delete/{id}',[CategoryController::class,'category_delete'])->middleware('rolecheck')->name('category.delete');
+Route::post('/category/status/{id}',[CategoryController::class,'category_status'])->middleware('rolecheck')->name('category.status');
+Route::get('/category/edit/{slug}',[CategoryController::class,'category_edit'])->middleware('rolecheck')->name('category.edit');
+Route::post('/category/edit/update/{id}',[CategoryController::class,'category_edit_update'])->middleware('rolecheck')->name('category.edit.update');
 
 
 // Tags area
@@ -71,6 +72,12 @@ Route::post('/blog/main/status/{id}',[BlogController::class,'status'])->name('bl
 // blog edit
 Route::get('/blog/edit/{id}',[BlogController::class,'edit_blog'])->name('blog.edit');
 Route::post('/blog/edit/{id}',[BlogController::class,'edit'])->name('blog.edit');
+
+// role controller
+
+Route::get('/role',[RoleController::class,'role'])->middleware('rolecheck')->name('role.view');
+Route::post('/role/modaretor',[RoleController::class,'role_modaretor'])->middleware('rolecheck')->name('role.modaretor');
+Route::post('/role/assign',[RoleController::class,'role_assign'])->middleware('rolecheck')->name('role.assign');
 
 
 

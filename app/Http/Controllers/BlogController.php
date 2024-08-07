@@ -12,9 +12,10 @@ use Illuminate\Support\str;
 class BlogController extends Controller
 {
     public function index(){
-        $blogs = Blog::first()->paginate(4);
+        $admin_blog = Blog::all();
+        $blogs = Blog::where('user_id',auth()->id())->get();
         $trashes = Blog::onlyTrashed()->paginate(4);
-        return view('dashboard.blog.index',compact('blogs','trashes'));
+        return view('dashboard.blog.index',compact('blogs','trashes','admin_blog'));
     }
     public function blog_create(){
         $categories = Category::all();

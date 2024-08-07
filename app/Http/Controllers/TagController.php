@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TagController extends Controller
 {
     public function index(){
-        $tags = Tag::paginate(3);
+        $tags = Tag::where('user_id',auth()->id())->paginate(4);
         $trashes = Tag::onlyTrashed()->paginate(4);
         return view('dashboard.tag.tag',compact('tags','trashes'));
     }
@@ -20,6 +20,7 @@ class TagController extends Controller
 
         Tag::create([
             'title' => $request->title,
+            'user_id' => auth()->id(),
             'created_at' => now(),
         ]);
         return redirect()->route('tag')->with('success',"Update Successful");
@@ -42,6 +43,7 @@ class TagController extends Controller
         // Find the tag by ID and update it
         Tag::findOrFail($id)->update([
             'title' => $request->title,
+            'user_id' => auth()->id(),
             'updated_at' => now(),
         ]);
 
@@ -54,7 +56,7 @@ class TagController extends Controller
     function tag_edit_status($id){
 
         $tag = Tag::where('id',$id)->first();
-        
+
         if($tag->status == 'active'){
             Tag::find($id)->update([
                 'status' => 'deactive',

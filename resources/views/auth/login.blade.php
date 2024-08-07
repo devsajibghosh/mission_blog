@@ -40,7 +40,7 @@
             <div class="logo">
                 <a href="#">Neptune</a>
             </div>
-            <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p>
+            <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have an account? <a href="javascript::vloid(0)">Sign Up</a></p>
 
             <form action="{{ route('login') }}" method="POST">
                 @csrf
