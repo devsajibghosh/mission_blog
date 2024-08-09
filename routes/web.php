@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\FrontendController;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +22,17 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes([ 'register' => false ]);
+
+// this -part is frontend dev
+
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index_home'])->name('index.home');
+
+
+
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -78,6 +85,19 @@ Route::post('/blog/edit/{id}',[BlogController::class,'edit'])->name('blog.edit')
 Route::get('/role',[RoleController::class,'role'])->middleware('rolecheck')->name('role.view');
 Route::post('/role/modaretor',[RoleController::class,'role_modaretor'])->middleware('rolecheck')->name('role.modaretor');
 Route::post('/role/assign',[RoleController::class,'role_assign'])->middleware('rolecheck')->name('role.assign');
+// role delete
+// Route::post('/role/delete/{id}',[RoleController::class,'role_delete'])->name('role.delete');
+// Route::post('/role/delete/{id}',[RoleController::class,'role_delete'])->name('role.delete');
+Route::post('/role/restore/{id}',[RoleController::class,'role_restore'])->name('role.restore');
+Route::post('/role/p/delete/{id}',[RoleController::class,'role_forcedelete'])->name('role.forcedelete');
+Route::post('/role/delete/{id}',[RoleController::class,'role_at'])->name('role.at');
+
+
+
+
+
+
+
 
 
 

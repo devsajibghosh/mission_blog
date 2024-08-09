@@ -15,10 +15,10 @@ class RoleCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-       if(auth()->user()->role == 'admin' || auth()->user()->role == 'modaretor' ){
-        return $next($request);
-       }else{
-        return abort(404);
-       }
+        if(auth()->user()->role == 'admin' || auth()->user()->role == 'moderator'){
+            return $next($request);
+        }else{
+            return abort(404);
+        }
     }
 }

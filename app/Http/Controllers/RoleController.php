@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
     public function role(){
+        $trashes = User::onlyTrashed()->paginate(5);
         $modaretors = User::where('role','modaretor')->get();
         $specific_user = User::where('role','modaretor')
         ->orWhere('role','author')
@@ -17,6 +18,7 @@ class RoleController extends Controller
         return view('dashboard.rolemanage.index',[
             'modaretors' => $modaretors,
             'specific_user' => $specific_user,
+            'trashes' => $trashes,
         ]);
     }
 
@@ -53,6 +55,21 @@ class RoleController extends Controller
         return back()->with('success',"Dear $one->name sir,Promoted by $request->role_name");
     }
 
+    // soft delet
+    function role_at($id){
+        User::where('id',$id)->delete();
+        return back()->with('success','Delete Sucessfull');
+    }
+
+    // restore data
+    function role_restore($id){
+        User::where('id',$id)->restore();
+        return back()->with('success','Successfully Restore');
+    }
+    function role_forcedelete($id){
+        User::where('id',$id)->forceDelete();
+        return back()->with('success','Successfully Delete');
+    }
 
 
 }

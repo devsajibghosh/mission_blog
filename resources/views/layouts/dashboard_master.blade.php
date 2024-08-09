@@ -130,7 +130,7 @@
 
                     {{-- role manager --}}
 
-@if (auth()->user()->role == 'admin' || auth()->user()->role == 'modaretor')
+@if (auth()->user()->role == 'admin')
                         <li class="{{ \Request::route()->getName() == 'role.view' ? 'active-page' : '' }}">
                             <a href="{{ route('role.view') }}" class="active"><i
                                     class="material-icons-two-tone">account_circle</i>Role_Manager</a>

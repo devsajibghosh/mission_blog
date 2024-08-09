@@ -33,7 +33,7 @@
 </head>
 <body>
     <div class="app app-auth-sign-in align-content-stretch d-flex flex-wrap justify-content-end">
-        <div class="app-auth-background">
+        <div class="app-auth-background bg-dark">
 
         </div>
         <div class="app-auth-container">
