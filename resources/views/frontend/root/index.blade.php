@@ -9,72 +9,59 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="owl-carousel">
+
                     <!--post1-->
-                    <div class="blog-item" style="background-image: url('{{ asset('frontend_asset') }}/assets/img/blog/bg1.jpg')">
-                        <div class="blog-banner">
-                            <div class="post-overly">
-                                <div class="post-overly-content">
-                                    <div class="entry-cat">
-                                        <a href="blog-layout-1.html" class="category-style-2">Branding</a>
-                                    </div>
-                                    <h2 class="entry-title">
-                                        <a href="post-single.html">Architecture is a visual art and the buildings
-                                            speak for them selves </a>
-                                    </h2>
-                                    <ul class="entry-meta">
-                                        <li class="post-author"> <a href="author.html">Meriam Smith</a></li>
-                                        <li class="post-date"> <span class="line"></span> Fabuary 10 ,2022</li>
-                                        <li class="post-timeread"> <span class="line"></span> 15 mins read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!--post2-->
-                    <div class="blog-item" style="background-image: url('{{ asset('frontend_asset') }}/assets/img/blog/bg2.jpg')">
-                        <div class="blog-banner">
-                            <div class="post-overly">
-                                <div class="post-overly-content">
-                                    <div class="entry-cat">
-                                        <a href="blog-layout-1.html" class="category-style-2">Livestyle</a>
+@forelse ($blog_features as $blog)
+                        <div class="blog-item" style="background-image: url('{{ asset('uploads/blogs') }}/{{ $blog->image }}">
+                            <div class="blog-banner">
+                                <div class="post-overly">
+                                    <div class="post-overly-content">
+                                        <div class="entry-cat">
+                                        <a href="blog-layout-1.html" class="category-style-2">{{ $blog->RelationshipWithCategory->title }}</a>
+                                        </div>
+                                        <h2 class="entry-title">
+                                            <a href="post-single.html">{{ $blog->title }}</a>
+                                        </h2>
+                                        <ul class="entry-meta">
+                                            <li class="post-author"> <a href="author.html">{{ $blog->RelationshipWithUSer->name }}</a></li>
+                                            <li class="post-date"> <span class="line"></span>{{ \Carbon\Carbon::parse($blog->date)->format('M,d - Y') }}</li>
+                                            <li class="post-timeread"> <span class="line"></span>
+                                                {{ \Carbon\Carbon::parse($blog->date)->diffForHumans() }}
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <h2 class="entry-title">
-                                        <a href="post-single.html">Styles come and go. Good design is a language,
-                                            not a style. </a>
-                                    </h2>
-                                    <ul class="entry-meta">
-                                        <li class="post-author"> <a href="author.html">Meriam Smith</a></li>
-                                        <li class="post-date"> <span class="line"></span> Fabuary 10 ,2022</li>
-                                        <li class="post-timeread"> <span class="line"></span> 15 mins read</li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+@empty
 
-                    <!--post3-->
-                    <div class="blog-item" style="background-image: url('{{ asset('frontend_asset') }}/assets/img/blog/bg3.jpg')">
-                        <div class="blog-banner">
-                            <div class="post-overly">
-                                <div class="post-overly-content">
-                                    <div class="entry-cat">
-                                        <a href="blog-layout-1.html" class="category-style-2">branding</a>
-                                    </div>
-                                    <h2 class="entry-title">
-                                        <a href="post-single.html">Ignoring online marketing is like opening a
-                                            business but not telling anyone </a>
-                                    </h2>
-                                    <ul class="entry-meta">
-                                        <li class="post-author"> <a href="author.html">Meriam Smith</a></li>
-                                        <li class="post-date"> <span class="line"></span> Fabuary 10 ,2022</li>
-                                        <li class="post-timeread"> <span class="line"></span> 15 mins read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/-->
+
+<div class="blog-item" style="background-image: url('{{ asset('frontend_asset') }}/assets/img/blog/bg1.jpg')">
+    <div class="blog-banner">
+        <div class="post-overly">
+            <div class="post-overly-content">
+                <div class="entry-cat">
+                    <a href="blog-layout-1.html" class="category-style-2">Branding</a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="post-single.html">Architecture is a visual art and the buildings
+                        speak for them selves </a>
+                </h2>
+                <ul class="entry-meta">
+                    <li class="post-author"> <a href="author.html">Meriam Smith</a></li>
+                    <li class="post-date"> <span class="line"></span> Fabuary 10 ,2022</li>
+                    <li class="post-timeread"> <span class="line"></span> 15 mins read</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@endforelse
+
                 </div>
             </div>
         </div>
@@ -88,74 +75,18 @@
             <div class="row">
                 <div class="col-lg-12 ">
                     <div class="categories-items">
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/1.jpg" alt="">
-                            </div>
-                            <p>Design <span>10</span> </p>
-                        </a>
 
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/2.jpg" alt="">
-                            </div>
-                            <p>Branding <span>09</span></p>
-                        </a>
+@foreach ($Categories as $category)
+                            <a class="category-item" href="{{ route('root.category.blogs', $category->id ) }}">
+                                <div class="image">
+                                    <img src="{{ asset('uploads/category')}}/{{ $category->image }}" alt="">
+                                </div>
+                                <p>{{ $category->title }} <span>
+                                {{ $category->RelationWithBlog()->count() }}
+                                </span> </p>
+                            </a>
+@endforeach
 
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/3.jpg" alt="">
-                            </div>
-                            <p>marketing <span>11</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/4.jpg" alt="">
-                            </div>
-                            <p>food <span>05</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/5.jpg" alt="">
-                            </div>
-                            <p>technology <span>04</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/6.jpg" alt="">
-                            </div>
-                            <p>fashion <span>03</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/7.jpg" alt="">
-                            </div>
-                            <p>mobile <span>10</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/8.jpg" alt="">
-                            </div>
-                            <p>livestyle <span>08</span></p>
-                        </a>
-
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/9.jpg" alt="">
-                            </div>
-                            <p>healty <span>11</span></p>
-                        </a>
-                        <a class="category-item" href="#">
-                            <div class="image">
-                                <img src="{{ asset('frontend_asset') }}/assets/img/categories/10.jpg" alt="">
-                            </div>
-                            <p>healty <span>06</span></p>
-                        </a>
                     </div>
                 </div>
             </div>

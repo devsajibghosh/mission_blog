@@ -222,6 +222,20 @@
                                 </form>
                                 {{-- edit option of blogs --}}
                                 <a href="{{ route('blog.edit', $blog->id ) }}" class="badge bg-primary">edit</a>
+
+                                {{-- feture button --}}
+
+@if (auth()->user()->role == 'admin')
+                            @if ($blog->feature == 'active')
+                            <a href="{{ route('blog.feature', $blog->id ) }}" class="badge bg-success">feature</a>
+                            @else
+                            <a href="{{ route('blog.feature', $blog->id ) }}" class="badge bg-danger">feature</a>
+                            @endif
+
+@else
+
+@endif
+
                             </td>
                           </tr>
                         @empty

@@ -136,6 +136,25 @@ function edit(Request $request, $id){
         }
 }
 
+// feature button add
+
+function feature($id){
+    $blog = Blog::where('id',$id)->first();
+
+    if($blog->feature == 'active'){
+        Blog::find($id)->update([
+            'feature' => 'deactive',
+            'updated_at' => now(),
+        ]);
+        return back()->with('success','Feature Hide');
+    }else{
+        Blog::find($id)->update([
+            'feature' => 'active',
+            'updated_at' => now(),
+        ]);
+        return back()->with('success','Feature Show');
+    }
+}
 
 
 }
