@@ -36,7 +36,7 @@
             <div class="header-area ">
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="{{ route('index.home') }}">
                         <img src="{{ asset('frontend_asset') }}/assets/img/logo/logo-dark.png" alt="" class="logo-dark">
                         <img src="{{ asset('frontend_asset') }}/assets/img/logo/logo-white.png" alt="" class="logo-white">
                     </a>
@@ -46,11 +46,11 @@
                         <!--navbar-collapse-->
                         <div class="collapse navbar-collapse" id="main_nav">
                             <ul class="navbar-nav ">
-                                <li class="nav-item ">
-                                    <a class="nav-link active" href="index.html"> Home </a>
+                                <li class="nav-item {{ \Request::route()->getName() == 'index.home' ? 'active' : '' }}">
+                                    <a class="nav-link " href="{{ route('index.home') }}"> Home </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="blog.html"> Blogs </a>
+                                    <a class="nav-link {{ \Request::route()->getName() == 'root.blogs' ? 'active' : '' }}" href="{{ route('root.blogs') }}"> Blogs </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="author.html"> Authors </a>
@@ -155,6 +155,8 @@
                     </div>
                  </div>
             </div>
+
+
             <!--footer-copyright-->
             <div class="footer-area-copyright">
                 <div class="container">
@@ -180,8 +182,8 @@
                         <button type="button" class="close">
                             <i class="far fa-times"></i>
                         </button>
-                        <form class="search-form" action="https://oredoo.assiagroupe.net/Oredoo/search.html">
-                            <input type="search" value="" placeholder="What are you looking for?">
+                        <form class="search-form" action="{{ route('blogs.search') }}" method="GET">
+                            <input type="search" name="search_value" placeholder="ekane search koro?">
                             <button type="submit" class="search-btn"> search</button>
                         </form>
                     </div>

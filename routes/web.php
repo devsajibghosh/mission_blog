@@ -3,11 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FrontBlogsController;
 use App\Http\Controllers\FrontCategoryBlogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontTagBlogsController;
+use App\Http\Controllers\SearchController;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -29,15 +31,20 @@ Auth::routes([ 'register' => false ]);
 
 
 
-// this -part is frontend dev
+// frontend controller
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index_home'])->name('index.home');
 
-//front category--blog controller
-
+//frontend tag blog controller
 Route::get('/root/category/blog/{id}',[FrontCategoryBlogController::class,'category_blogs'])->name('root.category.blogs');
 Route::get('/root/category/single/blog/post/{id}',[FrontCategoryBlogController::class,'single_blogs'])->name('single.blog.post');
 // when click the tag go to same related post
 Route::get('/root/tag/blog/post/{id}',[FrontTagBlogsController::class,'tag_blog_post'])->name('tag.blog.post');
+
+// FrontBlogsController
+Route::get('/root/blogs',[FrontBlogsController::class,'index'])->name('root.blogs');
+
+// search blogs
+Route::get('/blogs/search',[SearchController::class,'search'])->name('blogs.search');
 
 
 

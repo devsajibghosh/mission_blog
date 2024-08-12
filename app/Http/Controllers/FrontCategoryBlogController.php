@@ -14,6 +14,11 @@ class FrontCategoryBlogController extends Controller
     }
     public function single_blogs($id){
         $blog = Blog::where('id',$id)->first();
+        if($blog){
+            Blog::find($id)->update([
+                'visitor_count' => $blog->visitor_count + 1 ,
+            ]);
+        }
         return view('frontend.frontblogs.singlepost',compact('blog'));
     }
 }
