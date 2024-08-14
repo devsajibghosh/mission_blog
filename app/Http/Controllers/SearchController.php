@@ -10,7 +10,8 @@ class SearchController extends Controller
     public function search (Request $request){
         $user_search = $request->search_value;
         // let's search on title and description
-        $blogs = Blog::where('title','like',"%$user_search%")->orwhere('description','like',"%$user_search%")->get();
+        $blogs = Blog::where('title','like',"%$user_search%")->orwhere('description','like',"%$user_search%")->orwhere('date','like',"%$user_search%")->get();
         return view('frontend.allblogs.index',compact('blogs','user_search'));
     }
+
 }

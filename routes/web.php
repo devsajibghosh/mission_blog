@@ -5,15 +5,20 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FrontBlogsController;
 use App\Http\Controllers\FrontCategoryBlogController;
+use App\Http\Controllers\FrontContactController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FrontTagBlogsController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SearchController;
 use App\Models\Blog;
+use App\Models\ContactController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +39,12 @@ Auth::routes([ 'register' => false ]);
 // frontend controller
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index_home'])->name('index.home');
 
+// contact controller
+Route::get('/contact/page',[FrontContactController::class,'contact_view'])->name('contact.view');
+Route::post('/contact/post',[FrontContactController::class,'contact_post'])->name('contact.post');
+
+
+
 //frontend tag blog controller
 Route::get('/root/category/blog/{id}',[FrontCategoryBlogController::class,'category_blogs'])->name('root.category.blogs');
 Route::get('/root/category/single/blog/post/{id}',[FrontCategoryBlogController::class,'single_blogs'])->name('single.blog.post');
@@ -43,8 +54,21 @@ Route::get('/root/tag/blog/post/{id}',[FrontTagBlogsController::class,'tag_blog_
 // FrontBlogsController
 Route::get('/root/blogs',[FrontBlogsController::class,'index'])->name('root.blogs');
 
-// search blogs
+// search blogs-controller
 Route::get('/blogs/search',[SearchController::class,'search'])->name('blogs.search');
+
+// registration controller
+Route::get('/author/registration',[RegistrationController::class,'registration'])->name('author.registration');
+Route::post('/author/register',[RegistrationController::class,'register'])->name('author.register');
+// login matter
+Route::get('/author/loginer',[RegistrationController::class,'loginer'])->name('author.loginer');
+Route::post('/author/login',[RegistrationController::class,'login'])->name('author.login');
+
+// comments
+
+Route::post('/single/post/comment',[RegistrationController::class,'comment'])->name('root.comment');
+
+
 
 
 
@@ -52,7 +76,15 @@ Route::get('/blogs/search',[SearchController::class,'search'])->name('blogs.sear
 
 
 // home controller
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+// status accept and reject
+Route::get('/home/status/approve/{id}', [App\Http\Controllers\HomeController::class, 'approve'])->name('home.approve.author');
+Route::get('/home/status/reject/{id}', [App\Http\Controllers\HomeController::class, 'rejecet'])->name('home.reject.author');
+// block author
+Route::get('/home/status/block/{id}', [App\Http\Controllers\HomeController::class, 'block'])->name('home.block.author');
+
+
+
 // profile controller
 Route::get('/profile',[ProfileController::class,'profile'])->name('profile');
 
@@ -108,6 +140,23 @@ Route::post('/role/restore/{id}',[RoleController::class,'role_restore'])->name('
 Route::post('/role/p/delete/{id}',[RoleController::class,'role_forcedelete'])->name('role.forcedelete');
 Route::post('/role/delete/{id}',[RoleController::class,'role_at'])->name('role.at');
 
+
+// email verification
+
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
 

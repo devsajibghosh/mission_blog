@@ -59,7 +59,7 @@
                                     <a class="nav-link" href="about.html"> About </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html"> Contact </a>
+                                    <a class="nav-link" href="{{ route('contact.view') }}"> Contact </a>
                                 </li>
                             </ul>
                         </div>
@@ -86,7 +86,18 @@
                     </div>
                     <!--button-subscribe-->
                     <div class="botton-sub">
-                        <a href="signup.html" class="btn-subscribe">Sign Up</a>
+                        @auth
+                        @if (auth()->user()->approve_status == false)
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-subscribe">{{ auth()->user()->name }}</button>
+                        </form>
+                        @else
+                        <a href="{{ route('home') }}" class="btn-subscribe">Dashboard</a>
+                        @endif
+                            @else
+                            <a href="{{ route('author.registration') }}" class="btn-subscribe">Sign Up</a>
+                        @endauth
                     </div>
                     <!--navbar-toggler-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
@@ -210,7 +221,10 @@
 
    <!-- JS main  -->
    <script src="{{ asset('frontend_asset') }}/assets/js/main.js"></script>
+{{-- sweet alret --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@yield('footer_content')
 
 </body>
 </html>
