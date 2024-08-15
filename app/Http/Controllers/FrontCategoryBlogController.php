@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class FrontCategoryBlogController extends Controller
@@ -19,6 +20,7 @@ class FrontCategoryBlogController extends Controller
                 'visitor_count' => $blog->visitor_count + 1 ,
             ]);
         }
-        return view('frontend.frontblogs.singlepost',compact('blog'));
+        $comments = Comment::with('relationwithreplay')->where('post_id',$id)->whereNull('parent_id')->get();
+        return view('frontend.frontblogs.singlepost',compact('blog','comments'));
     }
 }

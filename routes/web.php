@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
@@ -66,7 +67,7 @@ Route::post('/author/login',[RegistrationController::class,'login'])->name('auth
 
 // comments
 
-Route::post('/single/post/comment',[RegistrationController::class,'comment'])->name('root.comment');
+Route::post('/single/post/comment',[CommentController::class,'insert'])->name('root.comment.post');
 
 
 
