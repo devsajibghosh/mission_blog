@@ -174,7 +174,7 @@
                     <div class="row">
                        <div class="col-lg-12">
                            <div class="copyright">
-                            <p>© 2022,  AssiaGroupe, All Rights Reserved.</p>
+                            <p>© 2025, SajibGhosh, All Rights Reserved.</p>
                            </div>
                        </div>
                     </div>

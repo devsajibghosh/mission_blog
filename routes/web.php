@@ -136,6 +136,7 @@ Route::get('/blog/feature/{id}',[BlogController::class,'feature'])->middleware('
 Route::get('/role',[RoleController::class,'role'])->middleware('rolecheck')->name('role.view');
 Route::post('/role/modaretor',[RoleController::class,'role_modaretor'])->middleware('rolecheck')->name('role.modaretor');
 Route::post('/role/assign',[RoleController::class,'role_assign'])->middleware('rolecheck')->name('role.assign');
+
 // role delete
 Route::post('/role/restore/{id}',[RoleController::class,'role_restore'])->name('role.restore');
 Route::post('/role/p/delete/{id}',[RoleController::class,'role_forcedelete'])->name('role.forcedelete');

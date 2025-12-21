@@ -46,8 +46,8 @@
                     <tr>
                         <td style="padding: 20px; text-align: center; background-color: #f4f4f4; color: #888888;">
                             <p style="margin: 0; font-size: 14px;">
-                                © [2024] [Bloger--2024]. All rights reserved.<br>
-                                [Banani,Dhaka]
+                                © [2025] [Bloger--2024]. All rights reserved.<br>
+                                [Banani,a]
                             </p>
                         </td>
                     </tr>
